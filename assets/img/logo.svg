@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Vite et Gourmand">
+  <circle cx="60" cy="60" r="56" fill="#2f5d50"/>
+  <circle cx="60" cy="60" r="48" fill="none" stroke="#f7f1e8" stroke-width="3"/>
+  <text x="60" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#f7f1e8">VG</text>
+  <text x="60" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#c45c26" letter-spacing="1">TRAITEUR</text>
+</svg>

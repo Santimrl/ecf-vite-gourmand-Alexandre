@@ -1,0 +1,26 @@
+# local / secrets
+config.local.php
+config.alwaysdata.php
+.env
+*.log
+debug_*.php
+_test_*.php
+import_sql.php
+
+uploads/menus/*
+!uploads/menus/.gitkeep
+
+data/nosql/*.json
+!data/nosql/.gitkeep
+
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# docs locaux hors depot
+docs/_figma_export/
+docs/*.md
+!docs/schemas/README.md
+docs/ECF_*.docx
+docs/~$*
