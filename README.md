@@ -14,10 +14,29 @@ Projet rendu dans le cadre de l’**ECF Développeur Web et Web Mobile** (Studi)
 
 ## Stack
 
-- Front : HTML5, CSS, Bootstrap 5, un peu de JavaScript (`fetch` pour les filtres)
-- Back : PHP 8 + PDO
+- Front : HTML5, CSS, Bootstrap 5, JavaScript (`fetch` filtres + validation formulaires)
+- Back : PHP 8 + PDO + petites classes metier (`classes/`)
 - BDD relationnelle : MySQL
-- BDD non relationnelle : fichiers JSON dans `data/nosql/` (stats admin — pas de serveur Mongo en local)
+- BDD non relationnelle : **MongoDB** (stats admin) via Docker ; fallback JSON si pas d’extension mongo
+- Conteneurisation : **Docker Compose** (`Dockerfile` + `docker-compose.yml`)
+
+## Install avec Docker (recommande pour la reeval)
+
+1. Installer [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. Dans le dossier du projet :
+
+```bash
+docker compose up --build
+```
+
+3. Ouvrir http://localhost:8080
+4. Seeds (une fois) : `/seed_passwords.php` puis `/seed_avis_demo.php`
+5. Admin → Stats : doit afficher **MongoDB**
+
+Services :
+- `web` : PHP 8.2 + Apache + extension mongodb
+- `db` : MySQL 8 (port hote 3308)
+- `mongo` : MongoDB 7 (port 27017)
 
 ## Pourquoi Alwaysdata (et pas Fly.io / Heroku / Vercel) ?
 
@@ -26,13 +45,14 @@ L’énoncé cite Fly.io, Heroku, Azure, Vercel **en exemples**. Ce n’est pas 
 J’ai choisi **Alwaysdata** (offre Free) parce que :
 
 - PHP + **MySQL** sont inclus (même stack qu’en local)
-- pas besoin de Docker (Fly.io) ni d’adapter le projet pour Vercel (plutôt Node / front)
-- Heroku n’est plus vraiment gratuit
-- FTP + phpMyAdmin = simple pour un projet étudiant PHP
+- simple pour un projet étudiant (FTP + phpMyAdmin)
+- Heroku n’est plus vraiment gratuit ; Vercel est surtout front/Node
 
-URL : https://studi-vitegourmand.alwaysdata.net
+En local / reeval j’utilise aussi **Docker** (PHP + MySQL + Mongo) pour un environnement reproductible.
 
-## Install local (USB Webserver)
+URL prod : https://studi-vitegourmand.alwaysdata.net
+
+## Install local (USB Webserver — alternative)
 
 1. Allumer `usbwebserver.exe` (MySQL port **3307**, `root` / `usbw`)
 2. Importer `sql/schema.sql` puis `sql/seed.sql` dans phpMyAdmin
@@ -77,12 +97,29 @@ Sinon → erreur 403. Après la démo / le rendu, laisser à `false` (ou supprim
 - `docs/manuel_utilisation.pdf`
 - `docs/documentation_technique.pdf`
 - `docs/gestion_projet.pdf`
-- `docs/schemas/` (MCD, cas d’utilisation, séquence)
+- `docs/schemas/` (MCD, use-case, sequence)
+- `docs/schemas/mcd-cardinalites.md` (verbes + cardinalites)
+
+## Architecture simple (POO)
+
+- `classes/Utilisateur.php`, `Menu.php`, `Commande.php` : objets metier
+- `classes/Repositories.php` : acces donnees qui renvoient des objets
+- Vues PHP = affichage ; calculs livraison/prix dans les classes
 
 ## Git
 
 - `main` : version stable / livrable
 - `develop` : travail en cours
-- branches `feature/...` : une branche par fonctionnalité (ex. auth, menus, commande), fusionnée ensuite dans `develop`
+- branches `feature/...` + **Pull Request** vers `develop` / `main`
+
+## How to run (EN)
+
+```bash
+docker compose up --build
+# open http://localhost:8080
+# seed demo accounts via /seed_passwords.php then disable SEED_ENABLED
+```
+
+MySQL + Mongo start with Compose. App config uses environment variables (`DB_*`, `MONGO_URI`).
 
 Les mails en local sont aussi écrits dans `data/mails.log`.

@@ -52,7 +52,7 @@ require dirname(__DIR__) . '/includes/header.php';
 ?>
 
 <h1 class="h3 mb-3">Stats commandes</h1>
-<p><a href="/admin/index.php">Retour</a> · donnees depuis le stockage document (json)</p>
+<p><a href="/admin/index.php">Retour</a> · donnees NoSQL : <strong><?= e(nosql_backend_label()) ?></strong></p>
 
 <form class="row g-2 mb-4" method="get">
     <div class="col-md-3">

@@ -6,6 +6,7 @@ config.alwaysdata.php
 debug_*.php
 _test_*.php
 import_sql.php
+A_FAIRE*.txt
 
 uploads/menus/*
 !uploads/menus/.gitkeep
@@ -22,5 +23,6 @@ Thumbs.db
 docs/_figma_export/
 docs/*.md
 !docs/schemas/README.md
+!docs/schemas/mcd-cardinalites.md
 docs/ECF_*.docx
 docs/~$*

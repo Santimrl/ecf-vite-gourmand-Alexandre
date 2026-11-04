@@ -44,7 +44,7 @@ require __DIR__ . '/includes/header.php';
 <?php if ($erreur): ?><div class="alert alert-danger"><?= e($erreur) ?></div><?php endif; ?>
 <?php if ($ok): ?><div class="alert alert-success"><?= e($ok) ?></div><?php endif; ?>
 
-<form method="post" class="card card-menu p-3">
+<form method="post" class="card card-menu p-3 js-validate" data-validate="register" novalidate>
     <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
     <div class="row">
         <div class="col-md-6 mb-3">
@@ -71,11 +71,13 @@ require __DIR__ . '/includes/header.php';
     <div class="mb-3">
         <label class="form-label" for="password">Mot de passe</label>
         <input class="form-control" type="password" id="password" name="password" required>
+        <div class="invalid-feedback">Mot de passe trop faible.</div>
         <div class="form-text">10+ caractères, maj, min, chiffre, spécial</div>
     </div>
     <div class="mb-3">
         <label class="form-label" for="password2">Confirmer</label>
         <input class="form-control" type="password" id="password2" name="password2" required>
+        <div class="invalid-feedback">Confirmation requise.</div>
     </div>
     <button class="btn btn-vg" type="submit">S'inscrire</button>
 </form>

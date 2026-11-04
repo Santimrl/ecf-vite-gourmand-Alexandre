@@ -1,0 +1,12 @@
+.git
+.gitignore
+docs/_figma_export
+docs/*.md
+*.log
+data/mails.log
+data/nosql/*.json
+.idea
+.vscode
+start-serveur.bat
+.env
+config.alwaysdata.php

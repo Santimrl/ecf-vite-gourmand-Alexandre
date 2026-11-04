@@ -1,0 +1,45 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_URL: http://localhost:8080
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: vite_gourmand
+      DB_USER: vg
+      DB_PASS: vgpass
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: vite_gourmand
+      SEED_ENABLED: "true"
+    depends_on:
+      - db
+      - mongo
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: vite_gourmand
+      MYSQL_USER: vg
+      MYSQL_PASSWORD: vgpass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3308:3306"
+    volumes:
+      - vg_mysql:/var/lib/mysql
+      - ./sql/schema_alwaysdata.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./sql/seed_alwaysdata.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - vg_mongo:/data/db
+
+volumes:
+  vg_mysql:
+  vg_mongo:
